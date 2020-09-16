@@ -1,0 +1,1029 @@
+Terminals unused in grammar
+
+   ';'
+
+
+State 70 conflicts: 6 shift/reduce
+State 72 conflicts: 6 shift/reduce
+
+
+Grammar
+
+    0 $accept: p $end
+
+    1 p: dl sl
+
+    2 dl: dl d
+    3   | %empty
+
+    4 d: vl ':' ty
+
+    5 ty: "int"
+    6   | "real"
+
+    7 vl: vl ID
+    8   | ID
+
+    9 sl: sl s
+   10   | s
+
+   11 s: as
+   12  | is
+   13  | ls
+   14  | ios
+   15  | "nop"
+
+   16 as: ID '=' e
+
+   17 is: "if" be "then" sl "else" sl
+
+   18 ls: "while" be "do" sl
+
+   19 ios: "print" pe
+   20    | "read" ID
+
+   21 pe: e
+   22   | "str"
+
+   23 be: be '|' be
+   24   | be '&' be
+   25   | '~' be
+   26   | '(' be ')'
+   27   | re
+
+   28 re: e DEQL e
+   29   | e '<' e
+   30   | e '>' e
+
+   31 e: e '+' e
+   32  | e '-' e
+   33  | e '*' e
+   34  | e '/' e
+   35  | '-' e
+   36  | '(' e ')'
+   37  | ID
+   38  | IC
+   39  | FC
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'&' (38) 24
+'(' (40) 26 36
+')' (41) 26 36
+'*' (42) 33
+'+' (43) 31
+'-' (45) 32 35
+'/' (47) 34
+':' (58) 4
+';' (59)
+'<' (60) 29
+'=' (61) 16
+'>' (62) 30
+'|' (124) 23
+'~' (126) 25
+error (256)
+"else" (258) 17
+IC (259) 38
+FC (260) 39
+ID (261) 7 8 16 20 37
+"if" (262) 17
+"int" (263) 5
+"real" (264) 6
+"do" (265) 18
+"nop" (266) 15
+"print" (267) 19
+"read" (268) 20
+"str" (269) 22
+"then" (270) 17
+"while" (271) 18
+DEQL (272) 28
+
+
+Nonterminals, with rules where they appear
+
+$accept (32)
+    on left: 0
+p (33)
+    on left: 1, on right: 0
+dl (34)
+    on left: 2 3, on right: 1 2
+d (35)
+    on left: 4, on right: 2
+ty (36)
+    on left: 5 6, on right: 4
+vl (37)
+    on left: 7 8, on right: 4 7
+sl (38)
+    on left: 9 10, on right: 1 9 17 18
+s (39)
+    on left: 11 12 13 14 15, on right: 9 10
+as (40)
+    on left: 16, on right: 11
+is (41)
+    on left: 17, on right: 12
+ls (42)
+    on left: 18, on right: 13
+ios (43)
+    on left: 19 20, on right: 14
+pe (44)
+    on left: 21 22, on right: 19
+be (45)
+    on left: 23 24 25 26 27, on right: 17 18 23 24 25 26
+re (46)
+    on left: 28 29 30, on right: 27
+e (47)
+    on left: 31 32 33 34 35 36 37 38 39, on right: 16 21 28 29 30 31
+    32 33 34 35 36
+
+
+State 0
+
+    0 $accept: . p $end
+
+    $default  reduce using rule 3 (dl)
+
+    p   go to state 1
+    dl  go to state 2
+
+
+State 1
+
+    0 $accept: p . $end
+
+    $end  shift, and go to state 3
+
+
+State 2
+
+    1 p: dl . sl
+    2 dl: dl . d
+
+    ID       shift, and go to state 4
+    "if"     shift, and go to state 5
+    "nop"    shift, and go to state 6
+    "print"  shift, and go to state 7
+    "read"   shift, and go to state 8
+    "while"  shift, and go to state 9
+
+    d    go to state 10
+    vl   go to state 11
+    sl   go to state 12
+    s    go to state 13
+    as   go to state 14
+    is   go to state 15
+    ls   go to state 16
+    ios  go to state 17
+
+
+State 3
+
+    0 $accept: p $end .
+
+    $default  accept
+
+
+State 4
+
+    8 vl: ID .
+   16 as: ID . '=' e
+
+    '='  shift, and go to state 18
+
+    $default  reduce using rule 8 (vl)
+
+
+State 5
+
+   17 is: "if" . be "then" sl "else" sl
+
+    IC   shift, and go to state 19
+    FC   shift, and go to state 20
+    ID   shift, and go to state 21
+    '~'  shift, and go to state 22
+    '-'  shift, and go to state 23
+    '('  shift, and go to state 24
+
+    be  go to state 25
+    re  go to state 26
+    e   go to state 27
+
+
+State 6
+
+   15 s: "nop" .
+
+    $default  reduce using rule 15 (s)
+
+
+State 7
+
+   19 ios: "print" . pe
+
+    IC     shift, and go to state 19
+    FC     shift, and go to state 20
+    ID     shift, and go to state 21
+    "str"  shift, and go to state 28
+    '-'    shift, and go to state 23
+    '('    shift, and go to state 29
+
+    pe  go to state 30
+    e   go to state 31
+
+
+State 8
+
+   20 ios: "read" . ID
+
+    ID  shift, and go to state 32
+
+
+State 9
+
+   18 ls: "while" . be "do" sl
+
+    IC   shift, and go to state 19
+    FC   shift, and go to state 20
+    ID   shift, and go to state 21
+    '~'  shift, and go to state 22
+    '-'  shift, and go to state 23
+    '('  shift, and go to state 24
+
+    be  go to state 33
+    re  go to state 26
+    e   go to state 27
+
+
+State 10
+
+    2 dl: dl d .
+
+    $default  reduce using rule 2 (dl)
+
+
+State 11
+
+    4 d: vl . ':' ty
+    7 vl: vl . ID
+
+    ':'  shift, and go to state 34
+    ID   shift, and go to state 35
+
+
+State 12
+
+    1 p: dl sl .
+    9 sl: sl . s
+
+    ID       shift, and go to state 36
+    "if"     shift, and go to state 5
+    "nop"    shift, and go to state 6
+    "print"  shift, and go to state 7
+    "read"   shift, and go to state 8
+    "while"  shift, and go to state 9
+
+    $default  reduce using rule 1 (p)
+
+    s    go to state 37
+    as   go to state 14
+    is   go to state 15
+    ls   go to state 16
+    ios  go to state 17
+
+
+State 13
+
+   10 sl: s .
+
+    $default  reduce using rule 10 (sl)
+
+
+State 14
+
+   11 s: as .
+
+    $default  reduce using rule 11 (s)
+
+
+State 15
+
+   12 s: is .
+
+    $default  reduce using rule 12 (s)
+
+
+State 16
+
+   13 s: ls .
+
+    $default  reduce using rule 13 (s)
+
+
+State 17
+
+   14 s: ios .
+
+    $default  reduce using rule 14 (s)
+
+
+State 18
+
+   16 as: ID '=' . e
+
+    IC   shift, and go to state 19
+    FC   shift, and go to state 20
+    ID   shift, and go to state 21
+    '-'  shift, and go to state 23
+    '('  shift, and go to state 29
+
+    e  go to state 38
+
+
+State 19
+
+   38 e: IC .
+
+    $default  reduce using rule 38 (e)
+
+
+State 20
+
+   39 e: FC .
+
+    $default  reduce using rule 39 (e)
+
+
+State 21
+
+   37 e: ID .
+
+    $default  reduce using rule 37 (e)
+
+
+State 22
+
+   25 be: '~' . be
+
+    IC   shift, and go to state 19
+    FC   shift, and go to state 20
+    ID   shift, and go to state 21
+    '~'  shift, and go to state 22
+    '-'  shift, and go to state 23
+    '('  shift, and go to state 24
+
+    be  go to state 39
+    re  go to state 26
+    e   go to state 27
+
+
+State 23
+
+   35 e: '-' . e
+
+    IC   shift, and go to state 19
+    FC   shift, and go to state 20
+    ID   shift, and go to state 21
+    '-'  shift, and go to state 23
+    '('  shift, and go to state 29
+
+    e  go to state 40
+
+
+State 24
+
+   26 be: '(' . be ')'
+   36 e: '(' . e ')'
+
+    IC   shift, and go to state 19
+    FC   shift, and go to state 20
+    ID   shift, and go to state 21
+    '~'  shift, and go to state 22
+    '-'  shift, and go to state 23
+    '('  shift, and go to state 24
+
+    be  go to state 41
+    re  go to state 26
+    e   go to state 42
+
+
+State 25
+
+   17 is: "if" be . "then" sl "else" sl
+   23 be: be . '|' be
+   24   | be . '&' be
+
+    "then"  shift, and go to state 43
+    '|'     shift, and go to state 44
+    '&'     shift, and go to state 45
+
+
+State 26
+
+   27 be: re .
+
+    $default  reduce using rule 27 (be)
+
+
+State 27
+
+   28 re: e . DEQL e
+   29   | e . '<' e
+   30   | e . '>' e
+   31 e: e . '+' e
+   32  | e . '-' e
+   33  | e . '*' e
+   34  | e . '/' e
+
+    DEQL  shift, and go to state 46
+    '<'   shift, and go to state 47
+    '>'   shift, and go to state 48
+    '+'   shift, and go to state 49
+    '-'   shift, and go to state 50
+    '/'   shift, and go to state 51
+    '*'   shift, and go to state 52
+
+
+State 28
+
+   22 pe: "str" .
+
+    $default  reduce using rule 22 (pe)
+
+
+State 29
+
+   36 e: '(' . e ')'
+
+    IC   shift, and go to state 19
+    FC   shift, and go to state 20
+    ID   shift, and go to state 21
+    '-'  shift, and go to state 23
+    '('  shift, and go to state 29
+
+    e  go to state 53
+
+
+State 30
+
+   19 ios: "print" pe .
+
+    $default  reduce using rule 19 (ios)
+
+
+State 31
+
+   21 pe: e .
+   31 e: e . '+' e
+   32  | e . '-' e
+   33  | e . '*' e
+   34  | e . '/' e
+
+    '+'  shift, and go to state 49
+    '-'  shift, and go to state 50
+    '/'  shift, and go to state 51
+    '*'  shift, and go to state 52
+
+    $default  reduce using rule 21 (pe)
+
+
+State 32
+
+   20 ios: "read" ID .
+
+    $default  reduce using rule 20 (ios)
+
+
+State 33
+
+   18 ls: "while" be . "do" sl
+   23 be: be . '|' be
+   24   | be . '&' be
+
+    "do"  shift, and go to state 54
+    '|'   shift, and go to state 44
+    '&'   shift, and go to state 45
+
+
+State 34
+
+    4 d: vl ':' . ty
+
+    "int"   shift, and go to state 55
+    "real"  shift, and go to state 56
+
+    ty  go to state 57
+
+
+State 35
+
+    7 vl: vl ID .
+
+    $default  reduce using rule 7 (vl)
+
+
+State 36
+
+   16 as: ID . '=' e
+
+    '='  shift, and go to state 18
+
+
+State 37
+
+    9 sl: sl s .
+
+    $default  reduce using rule 9 (sl)
+
+
+State 38
+
+   16 as: ID '=' e .
+   31 e: e . '+' e
+   32  | e . '-' e
+   33  | e . '*' e
+   34  | e . '/' e
+
+    '+'  shift, and go to state 49
+    '-'  shift, and go to state 50
+    '/'  shift, and go to state 51
+    '*'  shift, and go to state 52
+
+    $default  reduce using rule 16 (as)
+
+
+State 39
+
+   23 be: be . '|' be
+   24   | be . '&' be
+   25   | '~' be .
+
+    $default  reduce using rule 25 (be)
+
+
+State 40
+
+   31 e: e . '+' e
+   32  | e . '-' e
+   33  | e . '*' e
+   34  | e . '/' e
+   35  | '-' e .
+
+    '/'  shift, and go to state 51
+    '*'  shift, and go to state 52
+
+    $default  reduce using rule 35 (e)
+
+
+State 41
+
+   23 be: be . '|' be
+   24   | be . '&' be
+   26   | '(' be . ')'
+
+    '|'  shift, and go to state 44
+    '&'  shift, and go to state 45
+    ')'  shift, and go to state 58
+
+
+State 42
+
+   28 re: e . DEQL e
+   29   | e . '<' e
+   30   | e . '>' e
+   31 e: e . '+' e
+   32  | e . '-' e
+   33  | e . '*' e
+   34  | e . '/' e
+   36  | '(' e . ')'
+
+    DEQL  shift, and go to state 46
+    '<'   shift, and go to state 47
+    '>'   shift, and go to state 48
+    '+'   shift, and go to state 49
+    '-'   shift, and go to state 50
+    '/'   shift, and go to state 51
+    '*'   shift, and go to state 52
+    ')'   shift, and go to state 59
+
+
+State 43
+
+   17 is: "if" be "then" . sl "else" sl
+
+    ID       shift, and go to state 36
+    "if"     shift, and go to state 5
+    "nop"    shift, and go to state 6
+    "print"  shift, and go to state 7
+    "read"   shift, and go to state 8
+    "while"  shift, and go to state 9
+
+    sl   go to state 60
+    s    go to state 13
+    as   go to state 14
+    is   go to state 15
+    ls   go to state 16
+    ios  go to state 17
+
+
+State 44
+
+   23 be: be '|' . be
+
+    IC   shift, and go to state 19
+    FC   shift, and go to state 20
+    ID   shift, and go to state 21
+    '~'  shift, and go to state 22
+    '-'  shift, and go to state 23
+    '('  shift, and go to state 24
+
+    be  go to state 61
+    re  go to state 26
+    e   go to state 27
+
+
+State 45
+
+   24 be: be '&' . be
+
+    IC   shift, and go to state 19
+    FC   shift, and go to state 20
+    ID   shift, and go to state 21
+    '~'  shift, and go to state 22
+    '-'  shift, and go to state 23
+    '('  shift, and go to state 24
+
+    be  go to state 62
+    re  go to state 26
+    e   go to state 27
+
+
+State 46
+
+   28 re: e DEQL . e
+
+    IC   shift, and go to state 19
+    FC   shift, and go to state 20
+    ID   shift, and go to state 21
+    '-'  shift, and go to state 23
+    '('  shift, and go to state 29
+
+    e  go to state 63
+
+
+State 47
+
+   29 re: e '<' . e
+
+    IC   shift, and go to state 19
+    FC   shift, and go to state 20
+    ID   shift, and go to state 21
+    '-'  shift, and go to state 23
+    '('  shift, and go to state 29
+
+    e  go to state 64
+
+
+State 48
+
+   30 re: e '>' . e
+
+    IC   shift, and go to state 19
+    FC   shift, and go to state 20
+    ID   shift, and go to state 21
+    '-'  shift, and go to state 23
+    '('  shift, and go to state 29
+
+    e  go to state 65
+
+
+State 49
+
+   31 e: e '+' . e
+
+    IC   shift, and go to state 19
+    FC   shift, and go to state 20
+    ID   shift, and go to state 21
+    '-'  shift, and go to state 23
+    '('  shift, and go to state 29
+
+    e  go to state 66
+
+
+State 50
+
+   32 e: e '-' . e
+
+    IC   shift, and go to state 19
+    FC   shift, and go to state 20
+    ID   shift, and go to state 21
+    '-'  shift, and go to state 23
+    '('  shift, and go to state 29
+
+    e  go to state 67
+
+
+State 51
+
+   34 e: e '/' . e
+
+    IC   shift, and go to state 19
+    FC   shift, and go to state 20
+    ID   shift, and go to state 21
+    '-'  shift, and go to state 23
+    '('  shift, and go to state 29
+
+    e  go to state 68
+
+
+State 52
+
+   33 e: e '*' . e
+
+    IC   shift, and go to state 19
+    FC   shift, and go to state 20
+    ID   shift, and go to state 21
+    '-'  shift, and go to state 23
+    '('  shift, and go to state 29
+
+    e  go to state 69
+
+
+State 53
+
+   31 e: e . '+' e
+   32  | e . '-' e
+   33  | e . '*' e
+   34  | e . '/' e
+   36  | '(' e . ')'
+
+    '+'  shift, and go to state 49
+    '-'  shift, and go to state 50
+    '/'  shift, and go to state 51
+    '*'  shift, and go to state 52
+    ')'  shift, and go to state 59
+
+
+State 54
+
+   18 ls: "while" be "do" . sl
+
+    ID       shift, and go to state 36
+    "if"     shift, and go to state 5
+    "nop"    shift, and go to state 6
+    "print"  shift, and go to state 7
+    "read"   shift, and go to state 8
+    "while"  shift, and go to state 9
+
+    sl   go to state 70
+    s    go to state 13
+    as   go to state 14
+    is   go to state 15
+    ls   go to state 16
+    ios  go to state 17
+
+
+State 55
+
+    5 ty: "int" .
+
+    $default  reduce using rule 5 (ty)
+
+
+State 56
+
+    6 ty: "real" .
+
+    $default  reduce using rule 6 (ty)
+
+
+State 57
+
+    4 d: vl ':' ty .
+
+    $default  reduce using rule 4 (d)
+
+
+State 58
+
+   26 be: '(' be ')' .
+
+    $default  reduce using rule 26 (be)
+
+
+State 59
+
+   36 e: '(' e ')' .
+
+    $default  reduce using rule 36 (e)
+
+
+State 60
+
+    9 sl: sl . s
+   17 is: "if" be "then" sl . "else" sl
+
+    "else"   shift, and go to state 71
+    ID       shift, and go to state 36
+    "if"     shift, and go to state 5
+    "nop"    shift, and go to state 6
+    "print"  shift, and go to state 7
+    "read"   shift, and go to state 8
+    "while"  shift, and go to state 9
+
+    s    go to state 37
+    as   go to state 14
+    is   go to state 15
+    ls   go to state 16
+    ios  go to state 17
+
+
+State 61
+
+   23 be: be . '|' be
+   23   | be '|' be .
+   24   | be . '&' be
+
+    '&'  shift, and go to state 45
+
+    $default  reduce using rule 23 (be)
+
+
+State 62
+
+   23 be: be . '|' be
+   24   | be . '&' be
+   24   | be '&' be .
+
+    $default  reduce using rule 24 (be)
+
+
+State 63
+
+   28 re: e DEQL e .
+   31 e: e . '+' e
+   32  | e . '-' e
+   33  | e . '*' e
+   34  | e . '/' e
+
+    '+'  shift, and go to state 49
+    '-'  shift, and go to state 50
+    '/'  shift, and go to state 51
+    '*'  shift, and go to state 52
+
+    $default  reduce using rule 28 (re)
+
+
+State 64
+
+   29 re: e '<' e .
+   31 e: e . '+' e
+   32  | e . '-' e
+   33  | e . '*' e
+   34  | e . '/' e
+
+    '+'  shift, and go to state 49
+    '-'  shift, and go to state 50
+    '/'  shift, and go to state 51
+    '*'  shift, and go to state 52
+
+    $default  reduce using rule 29 (re)
+
+
+State 65
+
+   30 re: e '>' e .
+   31 e: e . '+' e
+   32  | e . '-' e
+   33  | e . '*' e
+   34  | e . '/' e
+
+    '+'  shift, and go to state 49
+    '-'  shift, and go to state 50
+    '/'  shift, and go to state 51
+    '*'  shift, and go to state 52
+
+    $default  reduce using rule 30 (re)
+
+
+State 66
+
+   31 e: e . '+' e
+   31  | e '+' e .
+   32  | e . '-' e
+   33  | e . '*' e
+   34  | e . '/' e
+
+    '/'  shift, and go to state 51
+    '*'  shift, and go to state 52
+
+    $default  reduce using rule 31 (e)
+
+
+State 67
+
+   31 e: e . '+' e
+   32  | e . '-' e
+   32  | e '-' e .
+   33  | e . '*' e
+   34  | e . '/' e
+
+    '/'  shift, and go to state 51
+    '*'  shift, and go to state 52
+
+    $default  reduce using rule 32 (e)
+
+
+State 68
+
+   31 e: e . '+' e
+   32  | e . '-' e
+   33  | e . '*' e
+   34  | e . '/' e
+   34  | e '/' e .
+
+    $default  reduce using rule 34 (e)
+
+
+State 69
+
+   31 e: e . '+' e
+   32  | e . '-' e
+   33  | e . '*' e
+   33  | e '*' e .
+   34  | e . '/' e
+
+    $default  reduce using rule 33 (e)
+
+
+State 70
+
+    9 sl: sl . s
+   18 ls: "while" be "do" sl .
+
+    ID       shift, and go to state 36
+    "if"     shift, and go to state 5
+    "nop"    shift, and go to state 6
+    "print"  shift, and go to state 7
+    "read"   shift, and go to state 8
+    "while"  shift, and go to state 9
+
+    ID        [reduce using rule 18 (ls)]
+    "if"      [reduce using rule 18 (ls)]
+    "nop"     [reduce using rule 18 (ls)]
+    "print"   [reduce using rule 18 (ls)]
+    "read"    [reduce using rule 18 (ls)]
+    "while"   [reduce using rule 18 (ls)]
+    $default  reduce using rule 18 (ls)
+
+    s    go to state 37
+    as   go to state 14
+    is   go to state 15
+    ls   go to state 16
+    ios  go to state 17
+
+
+State 71
+
+   17 is: "if" be "then" sl "else" . sl
+
+    ID       shift, and go to state 36
+    "if"     shift, and go to state 5
+    "nop"    shift, and go to state 6
+    "print"  shift, and go to state 7
+    "read"   shift, and go to state 8
+    "while"  shift, and go to state 9
+
+    sl   go to state 72
+    s    go to state 13
+    as   go to state 14
+    is   go to state 15
+    ls   go to state 16
+    ios  go to state 17
+
+
+State 72
+
+    9 sl: sl . s
+   17 is: "if" be "then" sl "else" sl .
+
+    ID       shift, and go to state 36
+    "if"     shift, and go to state 5
+    "nop"    shift, and go to state 6
+    "print"  shift, and go to state 7
+    "read"   shift, and go to state 8
+    "while"  shift, and go to state 9
+
+    ID        [reduce using rule 17 (is)]
+    "if"      [reduce using rule 17 (is)]
+    "nop"     [reduce using rule 17 (is)]
+    "print"   [reduce using rule 17 (is)]
+    "read"    [reduce using rule 17 (is)]
+    "while"   [reduce using rule 17 (is)]
+    $default  reduce using rule 17 (is)
+
+    s    go to state 37
+    as   go to state 14
+    is   go to state 15
+    ls   go to state 16
+    ios  go to state 17
