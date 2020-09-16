@@ -1,0 +1,165 @@
+%{
+	#include<bits/stdc++.h>
+	#include"symtab.cpp"
+	using namespace std;
+	
+	int i;
+%}
+
+
+
+%token ':'
+%token '=' ';' ELSE "else" IC FC <varName> ID IF "if" INT "int" REAL "real" DO "do" NOP "nop" PRINT "print" READ "read" STR "str" THEN "then" WHILE "while" 
+%type <etype> e
+%type <vltype> vl
+%type <ttype> ty
+%left '|'
+%left '&'
+%left '~'
+%left DEQL '<' '>'
+%left '+' '-'
+%left '/' '*'
+
+%union
+{
+	struct ETYPE
+	{
+		int index;
+		char type;
+	}etype;
+	char varName[100];
+	struct VLTYPE
+	{
+		int len;
+		int vars[100];
+	}vltype;
+	struct TTYPE
+	{
+		char type;
+	}ttype;
+}
+
+%start p
+%%
+p:dl sl
+;
+dl:dl d
+   |
+;
+d:vl ':' ty{
+for(i=0;i<$1.len;i++)
+{
+	ste[$1.vars[i]]=$3.type;
+}
+}
+;
+ty:"int"
+   |"real"
+;
+vl:vl ID {if(search($2)==-1)
+{
+	cout<<"ERROR ....redeclaration of "<<$2<<"at line "<<yylineno<<"\n";
+}
+else
+{
+	insert($2);
+}
+}
+   |ID{if(search($1)==-1)
+{
+	cout<<"ERROR ....redeclaration of "<<$1<<"at line"<<yylineno<<"\n";
+	insert($1);
+}
+else
+{
+	insert($1);
+}
+}
+;
+sl:sl s
+   |s
+;
+s:as
+|is
+|ls
+|ios
+|"nop"
+;
+as:
+ID '=' e
+;
+is:"if" be "then" sl "else" sl
+; 
+ls:"while" be "do" sl
+;
+ios:"print" pe 
+|"read" ID
+;
+pe:e
+|"str"
+;
+be:be '|' be
+|be '&' be
+|'~'be
+|'('be')'
+|re
+;
+re:e DEQL e
+|e '<'e
+|e '>'e
+;
+e:e '+' e
+| e '-' e
+| e '*' e
+| e '/' e
+|'-'e
+|'('e ')'
+|ID{if(search($1)==-1)
+{
+	cout<<"ERROR ....redeclaration of "<<$1<<"at line"<<yylineno<<"\n";
+}
+else
+{
+	insert($1);
+}
+}
+|IC
+|FC
+;
+%%
+int main()
+{
+	return yyparse();
+}
+
+int yyerror(char const *s)
+{
+	cerr<<s<<yylineno<<"\n";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
